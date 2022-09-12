@@ -1,37 +1,52 @@
-import React, { useState } from 'react'
-import '../styles/App.css';
+import React, { useEffect, useState } from "react";
+import "../styles/App.css";
 const App = () => {
-const [text,setText] = useState();
-const [num, setNum] = useState();
+  const [inputValueText, setInputValueText] = useState("");
+  const [inputValueNumber, setInputValueNumber] = useState("");
 
-  const handleInput = (event) =>{
-    event.preventDefault();
-    let textvalue = document.getElementById('text-input').event.target.value
-   // use console.log
-   console.log('first input'+textvalue)
-   console.log('first input'+num)
+  const handleInput = (event) => {
+    switch (event.target.id) {
+      case "text-input": {
+        setInputValueText(event.target.value);
+        break;
+      }
+      case "num-input": {
+        setInputValueNumber(event.target.value);
+        break;
+      }
+      default: {
+        return;
+      }
+    }
+  };
 
-   setText('');
-   setNum('')
+  useEffect(() => {
+    console.log(`Input in #text-input is ${inputValueText}`);
+  }, [inputValueText]);
 
-  }
+  useEffect(() => {
+    console.log(`Input in #num-input is ${inputValueNumber}`);
+  }, [inputValueNumber]);
 
-  // do not change id of input elements
   return (
     <div id="main">
-      <label htmlFor='text-input'>Text Input:- </label>
-      <input id="text-input" type={'text'}  onSubmit={event => setText(event.target.value)}/>
-
-      <br/>
-      <br/>
-
-      <label htmlFor='num-input'>Number input</label>
-      <input id="num-input"  type={'number'} onSubmit={event => setNum(event.target.value)}/>
-      <br/>
-      <button type='submit' onSubmit={handleInput}>submit</button>
+      <label htmlFor="text-input">Text Input:- </label>
+      <input
+        id="text-input"
+        type="text"
+        value={inputValueText}
+        onChange={handleInput}
+      />
+      <br />
+      <label htmlFor="num-input">Number input</label>
+      <input
+        id="num-input"
+        type="number"
+        value={inputValueNumber}
+        onChange={handleInput}
+      />
     </div>
-  )
-}
-
+  );
+};
 
 export default App;
